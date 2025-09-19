@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllUsersArrivalData, getDistance, saveUserArrivalData } from "../controllers/userArrivalController";
+import { getAllUsersArrivalData, getDistance, saveUserArrivalData } from "../controllers/userArrivalController.js";
 
 const router = express.Router();
 

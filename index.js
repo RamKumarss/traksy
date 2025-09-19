@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import userArrivalRoutes from "./routes/userArrivalRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables from .env
