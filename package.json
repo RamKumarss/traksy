@@ -1,5 +1,11 @@
 {
+  "type": "module",
+  "scripts": {
+    "start": "node api/index.js"
+  },
   "dependencies": {
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
     "serverless-http": "^4.0.0"
   }
 }

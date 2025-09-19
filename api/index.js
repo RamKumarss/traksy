@@ -1,13 +1,12 @@
 import express from "express";
 import fs from "fs";
-import serverless from "serverless-http";
 
 const app = express();
 app.use(express.json());
 
 const FILE = "data.json";
 
-// POST /api/save
+// POST /save → add new data into the file
 app.post("/save", (req, res) => {
   const newData = req.body;
 
@@ -17,25 +16,38 @@ app.post("/save", (req, res) => {
     existingData = JSON.parse(raw);
   }
 
+  // Make sure it's always an array
   if (!Array.isArray(existingData)) {
     existingData = [existingData];
   }
 
-  existingData.push(newData);
+  // Check if a record with the same "name" already exists
+  const index = existingData.findIndex(item => item.name === newData.name);
 
+  if (index !== -1) {
+    // Replace existing object
+    existingData[index] = newData;
+  } else {
+    // Add new object
+    existingData.push(newData);
+  }
+
+  // Save back to file
   fs.writeFileSync(FILE, JSON.stringify(existingData, null, 2));
+
   res.json({ message: "Data saved!", data: newData });
 });
 
-// GET /api/data
+
+// GET /data → get all saved data
 app.get("/data", (req, res) => {
   if (fs.existsSync(FILE)) {
     const raw = fs.readFileSync(FILE);
-    res.json(JSON.parse(raw));
+    const json = JSON.parse(raw);
+    res.json(json);
   } else {
     res.json([]);
   }
 });
 
-// Export serverless handler
-export default serverless(app);
+app.listen(3000, () => console.log("Server running on port 3000"));
