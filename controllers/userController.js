@@ -20,10 +20,10 @@ export const saveUser = async (req, res) => {
 
 // Get getUserByName
 export const getUserByName = async (req, res) => {
-  const { name } = req.params; // Get name from URL
+  const { id } = req.params; // Get name from URL
 
   try {
-    const userData = await User.findOne({ name: name }); // Find user by name
+    const userData = await User.findOne({ _id: id }); // Find user by name
     if (!userData) {
       return res.status(404).json({ error: 'User not found' });
     }
