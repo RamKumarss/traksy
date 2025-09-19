@@ -1,12 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
 import userArrivalRoutes from "./routes/userArrivalRoutes.js";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables from .env
 
 const app = express();
 app.use(express.json());
 
-// 🔑 Replace with your actual MongoDB URI
-const MONGO_URI = "mongodb+srv://ramssss467_db_user:zJj0U2IPmYeLZ9eo@cluster0.dlfwrq2.mongodb.net/traksy";
+// 🔑 Use environment variable for MongoDB URI
+const MONGO_URI = process.env.MONGODB_URI;
+
+if (!MONGO_URI) {
+  console.error("❌ Error: MONGODB_URI is not defined in environment variables");
+  process.exit(1);
+}
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -16,4 +24,6 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 // Use Routes
 app.use("/api", userArrivalRoutes);
 
-app.listen(3000, () => console.log("🚀 Server running on port 3000"));
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

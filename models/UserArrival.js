@@ -7,4 +7,5 @@ const UserArrivalSchema = new mongoose.Schema({
 
 });
 
-export default mongoose.model("userarrivaldata", UserArrivalSchema);
+export default mongoose.model("UserArrival", UserArrivalSchema, "userarrivaldata");
+
