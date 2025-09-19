@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 // 🔑 Replace with your actual MongoDB URI
-const MONGO_URI = "mongodb+srv://ramssss467_db_user:zJj0U2IPmYeLZ9eo@cluster0.dlfwrq2.mongodb.net/";
+const MONGO_URI = "mongodb+srv://ramssss467_db_user:zJj0U2IPmYeLZ9eo@cluster0.dlfwrq2.mongodb.net/traksy";
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
