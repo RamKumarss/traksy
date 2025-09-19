@@ -3,10 +3,13 @@ import mongoose from "mongoose";
 import userArrivalRoutes from "./routes/userArrivalRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import dotenv from "dotenv";
+import cors from "cors";   // ✅ Import cors
 
 dotenv.config(); // Load environment variables from .env
 
 const app = express();
+// ✅ Allow CORS for all requests
+app.use(cors());
 app.use(express.json());
 
 // 🔑 Use environment variable for MongoDB URI
