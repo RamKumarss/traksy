@@ -1,4 +1,4 @@
-import UserArrival from '../models/UserArrival.js';
+import User from '../models/User.js';
 
 // Save or Update User
 export const saveUser = async (req, res) => {
@@ -6,7 +6,7 @@ export const saveUser = async (req, res) => {
     const newData = req.body;
 
     // Update if same name exists
-    const updated = await UserArrival.findOneAndUpdate(
+    const updated = await User.findOneAndUpdate(
       { name: newData.name },
       newData,
       { new: true, upsert: true } // upsert = insert if not found
