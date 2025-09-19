@@ -1,7 +1,7 @@
 import UserArrival from "../models/UserArrival.js";
 
-// Save or Update User
-export const saveUser = async (req, res) => {
+// Save or Update User Arrival Data
+export const saveUserArrivalData = async (req, res) => {
   try {
     const newData = req.body;
 
@@ -18,8 +18,8 @@ export const saveUser = async (req, res) => {
   }
 };
 
-// Get All Users
-export const getAllUsers = async (req, res) => {
+// Get All Users Arrival Data
+export const getAllUsersArrivalData = async (req, res) => {
   try {
     const allData = await UserArrival.find();
     res.json(allData);

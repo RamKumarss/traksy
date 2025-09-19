@@ -22,7 +22,8 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Use Routes
-app.use("/api", userArrivalRoutes);
+app.use("/api/locationData", userArrivalRoutes);
+app.use("/api/user", userRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3000;
