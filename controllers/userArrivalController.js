@@ -28,7 +28,6 @@ export const saveUserArrivalDataApi = async (req, res) => {
   }
 };
 
-
 // Get All Users Arrival Data
 export const getAllUsersArrivalData = async (req, res) => {
   try {
