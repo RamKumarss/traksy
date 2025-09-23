@@ -39,7 +39,7 @@ export const getAllUsersArrivalData = async (req, res) => {
 };
 
 // Helper function: get distance from Google Maps API
-export const getDistanceFromGoogle = async (originLat, originLng, destination = '28.4196,77.0386') => {
+export const getDistanceFromGoogle = async (originLat, originLng, destination = '28.4657,77.0503') => {
   if (!originLat || !originLng) {
     throw new Error('Origin latitude and longitude are required');
   }
