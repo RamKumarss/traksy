@@ -3,16 +3,30 @@ import User from '../models/User.js';
 // Save or Update User
 export const saveUser = async (req, res) => {
   try {
-    const newData = req.body;
+    let newData = req.body;
 
-    // Update if same name exists
-    const updated = await User.findOneAndUpdate(
-      { name: newData.name },
-      newData,
-      { new: true, upsert: true } // upsert = insert if not found
-    );
+    // Always save name in lowercase
+    if (newData.name) {
+      newData.name = newData.name.toLowerCase();
+    }
 
-    res.json({ message: 'Data saved/updated!', data: updated });
+    // Check if user with same lowercase name already exists
+    const existingUser = await User.findOne({ name: newData.name });
+
+    if (existingUser) {
+      // Don't override, just return existing data
+      return res.json({
+        message: 'User already exists!',
+        data: existingUser
+      });
+    }
+
+    // Otherwise create new user
+    const user = new User(newData);
+    const savedUser = await user.save();
+
+    res.json({ message: 'New user created!', data: savedUser });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
