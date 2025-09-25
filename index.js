@@ -32,8 +32,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-
-app.options("*", cors());
 app.use(express.json());
 
 // 🔑 Use environment variable for MongoDB URI
