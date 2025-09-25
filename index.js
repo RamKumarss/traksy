@@ -9,7 +9,24 @@ dotenv.config(); // Load environment variables from .env
 
 const app = express();
 // ✅ Allow CORS for all requests
-app.use(cors());
+const allowedOrigins = [    // dev (CRA/Next.js)
+  "https://traksy-fiwh.vercel.app",  // prod frontend domain
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+app.options("*", cors());
 app.use(express.json());
 
 // 🔑 Use environment variable for MongoDB URI
