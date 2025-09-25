@@ -7,7 +7,5 @@ const router = express.Router();
 router.post("/updateArrivalListData", saveUserArrivalDataApi);
 router.get("/getArrivalListData", getAllUsersArrivalData);
 router.get("/distance", getDistance);
-router.post("/schedule-task", updateArrivalTimeWithScheduler)
-router.get("/distanceTracky", getDistanceTracky);
 
 export default router;
