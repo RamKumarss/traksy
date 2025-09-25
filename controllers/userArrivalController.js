@@ -74,45 +74,6 @@ export const getDistance = async (req, res) => {
   }
 };
 
-const activeTasks = {};
-export const updateArrivalTimeWithScheduler = async (req, res) => {
-  const { time1, time2, taskId } = req.body;
-  // time1 and time2 are UTC timestamps in ISO format, e.g., "2025-09-22T10:00:00Z"
-
-  const startTime = new Date(time1).getTime();
-  const endTime = new Date(time2).getTime();
-  const now = Date.now();
-
-  if (startTime <= now) {
-    return res.status(400).json({ error: 'time1 must be in the future' });
-  }
-
-  // Schedule first API call at time1
-  const delayToStart = startTime - now;
-  const startTimeout = setTimeout(async () => {
-    console.log(`Task ${taskId} starting at ${new Date().toISOString()}`);
-    await callApi(taskId);
-
-    // Schedule repeated API calls every 10 minutes until time2
-    const interval = setInterval(async () => {
-      const currentTime = Date.now();
-      if (currentTime >= endTime) {
-        console.log(`Task ${taskId} reached time2, stopping`);
-        clearInterval(interval);
-        delete activeTasks[taskId];
-      } else {
-        await callApi(taskId);
-      }
-    }, 10 * 60 * 1000); // 10 minutes
-
-    activeTasks[taskId] = interval;
-  }, delayToStart);
-
-  activeTasks[taskId] = startTimeout;
-
-  res.json({ message: `Task ${taskId} scheduled from ${time1} to ${time2}` });
-};
-
 // Time pass
 export const getDistanceFromGoogleTracky = async (
   originLat,
